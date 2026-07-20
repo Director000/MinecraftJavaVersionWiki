@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minecraft Java Version List</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', 'PingFang SC', Roboto, 'Helvetica Neue', sans-serif;
+            background-color: #1a1a2e;
+            color: #e0e0e0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: #16213e;
+            border-radius: 24px;
+            padding: 30px 35px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
+            border: 1px solid #2a3a5e;
+        }
+        h1 {
+            text-align: center;
+            font-size: 2.4rem;
+            font-weight: 700;
+            color: #f5c842;
+            text-shadow: 0 0 10px rgba(245, 200, 66, 0.3);
+            letter-spacing: 2px;
+            margin-bottom: 6px;
+        }
+        .subtitle {
+            text-align: center;
+            color: #8a9bb5;
+            font-size: 0.95rem;
+            border-bottom: 1px solid #2a3a5e;
+            padding-bottom: 20px;
+            margin-bottom: 25px;
+        }
+        .subtitle a {
+            color: #6ea8fe;
+            text-decoration: none;
+        }
+        .subtitle a:hover {
+            text-decoration: underline;
+        }
+        .intro {
+            background: #1f2b48;
+            padding: 16px 22px;
+            border-radius: 14px;
+            border-left: 5px solid #f5c842;
+            margin-bottom: 30px;
+            font-size: 0.98rem;
+            color: #c8d6e5;
+        }
+        .intro strong {
+            color: #f5c842;
+        }
+        .version-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 22px;
+        }
+        .version-card {
+            background: #1a2744;
+            border-radius: 16px;
+            padding: 18px 20px 20px;
+            border: 1px solid #2d4068;
+            transition: all 0.25s ease;
+            display: flex;
+            flex-direction: column;
+        }
+        .version-card:hover {
+            transform: translateY(-4px);
+            border-color: #f5c842;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            background: #1f2e50;
+        }
+        .version-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            flex-wrap: wrap;
+            margin-bottom: 6px;
+        }
+        .version-number {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #f5c842;
+            letter-spacing: 0.5px;
+        }
+        .version-date {
+            font-size: 0.8rem;
+            color: #8a9bb5;
+            background: #0f1a2e;
+            padding: 2px 12px;
+            border-radius: 30px;
+        }
+        .version-theme {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #b7c9e2;
+            margin-bottom: 8px;
+            border-bottom: 1px dashed #2d4068;
+            padding-bottom: 6px;
+        }
+        .version-detail {
+            font-size: 0.92rem;
+            color: #c8d6e5;
+            flex-grow: 1;
+            margin-bottom: 12px;
+        }
+        .version-detail .tag {
+            display: inline-block;
+            background: #2d4068;
+            padding: 0 10px;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            color: #a0b8d9;
+            margin-right: 4px;
+        }
+        .version-detail .highlight {
+            color: #6ea8fe;
+        }
+        .version-detail .remove {
+            color: #f77b7b;
+        }
+        .version-detail .add {
+            color: #7ddf9a;
+        }
+        .version-detail .recommend {
+            color: #f5c842;
+        }
+        .version-links {
+            margin-top: 6px;
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .version-links a {
+            color: #6ea8fe;
+            text-decoration: none;
+            font-size: 0.85rem;
+            background: #0f1a2e;
+            padding: 3px 14px;
+            border-radius: 30px;
+            border: 1px solid #2d4068;
+            transition: 0.2s;
+        }
+        .version-links a:hover {
+            background: #f5c842;
+            color: #0f1a2e;
+            border-color: #f5c842;
+        }
+        .footer {
+            margin-top: 35px;
+            text-align: center;
+            font-size: 0.85rem;
+            color: #5a6f8c;
+            border-top: 1px solid #2a3a5e;
+            padding-top: 20px;
+        }
+        .footer a {
+            color: #6ea8fe;
+            text-decoration: none;
+        }
+        @media (max-width: 700px) {
+            .container {
+                padding: 16px;
+            }
+            h1 {
+                font-size: 1.8rem;
+            }
+            .version-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>⛏️Minecraft Java Version List</h1>
+    <div class="subtitle">
+        覆盖范围：<strong>1.0.0</strong>（2011） → <strong>26.3-snapshot 2</strong>（2026 开发中）
+        <span style="font-size:0.85rem;">✅ 已添加 26.3-snapshot 两个试用版本</span>
+    </div>
+
+    <div class="intro">
+        <strong>📌 当前Wiki版本:1.3.1</strong>
+        <strong>⛏️ 作者:director</strong>
+        <strong>因为pcl2官网有时出错,点<a href="https://1857690273.share.123pan.cn/123pan/IAKUvd-Fasf?pwd=5021#" target="_blank">这里下载</a>(123网盘),提取码:5021</strong>
+        <br><span style="color:#8a9bb5;">✨ 每个版本均包含“添加/删除/特性/推荐玩家”信息，点击 Wiki 链接查看完整日志。</span>
+    </div>
+
+    <div class="version-grid">
+        <!-- ===== 1.0.0 ===== -->
+        <div class="version-card">
+            <div class="version-header">
+                <span class="version-number">1.0.0</span>
+                <span class="version-date">2011.11</span>
+            </div>
+            <div class="version-theme">🎯 冒险更新 (Adventure Update)</div>
+            <div class="version-detail">
+                <span class="add">+</span> 末路之地、末影龙、附魔、酿造、极限模式<br>
+                <span class="highlight">✨ 特性：</span> 游戏正式发布，加入“结局”<br>
+                <span class="recommend">👥 推荐：</span> 所有玩家，体验最原始完整的生存之旅
+            </div>
+            <div class="version-links">
+                <a href="https://zh.minecraft.wiki/w/Java版1.0.0" target="_blank">📖 Wiki</a>
+            </div>
+        </div>
+
+        <!-- ===== 1.1 ===== -->
+        <div class="version-card">
+            <div class="version-header">
+                <span class="version-number">1.1</span>
+                <span class="version-date">2012.01</span>
+            </div>
+            <div class="version-theme">🌾 更新</div>
+            <div class="version-detail">
+                <span class="add">+</span> 刷怪蛋、超平坦世界、多种新语言<br>
+                <span class="highlight">✨ 特性：</span> 首次加入可生成生物的刷怪蛋<br>
+                <span class="recommend">👥 推荐：</span> 喜欢超平坦建造或测试的玩家
+            </div>
+            <div class="version-links">
+                <a href="https://zh.minecraft.wiki/w/Java版1.1" target="_blank">📖 Wiki</a>
+            </div>
+        </div>
+
+        <!-- ===== 1.2 ===== -->
+        <div class="version-card">
+            <div class="version-header">
+                <span class="version-number">1.2</span>
+                <span class="version-date">2012.03</span>
+            </div>
+            <div class="version-theme">🌍 更新</div>
+            <div class="version-detail">
+                <span class="add">+</span> 丛林生物群系、猫、铁傀儡、聊天历史<br>
+                <span class="highlight">✨ 特性：</span> 世界高度上限从128增至256<br>
+                <span class="recommend">👥 推荐：</span> 喜欢探索新群系和建造高层的玩家
+            </div>
+            <div class="version-links">
+                <a href="https://zh.minecraft.wiki/w/Java版1.2" target="_blank">📖 Wiki</a>
+            </div>
+        </div>
+
+        <!-- ===== 1.3 ===== -->
+        <div class="version-card">
+            <div class="version-header">
+                <span class="version-number">1.3</span>
+                <span class="version-date">2012.08</span>
+            </div>
+            <div class="version-theme">📦 更新</div>
+            <div class="version-detail">
+                <span class="add">+</span> 交易、绿宝石、可可豆、书与笔<br>
+                <span class="highlight">✨ 特性：</span> 首次加入村民交易系统<br>
+                <span class="recommend">👥 推荐：</span> 喜欢与村民互动和贸易的玩家
+            </div>
+            <div class="version-links">
+                <a href="https://zh.minecraft.wiki/w/Java版1.3" target="_blank">📖 Wiki</a>
+            </div>
+        </div>
+
+        <!-- ===== 1.4 ===== -->
+        <div class="version-card">
+            <div class="version-header">
+                <span class="version-number">1.4</span>
+                <span class="version-date">2012.10</span>
+            </div>
+            <div class="version-theme">👻 骇人更新 (Pretty Scary Update)</div>
+            <div class="version-detail">
+                <span class="add">+</span> 凋灵、信标、命令方块、胡萝卜钓竿、头戴生物头颅<br>
+                <span class="highlight">✨ 特性：</span> 加入首个可召唤的BOSS——凋灵<br>
+                <span class="recommend">👥 推荐：</span> 挑战BOSS和红石/命令进阶玩家
+            </div>
+            <div class="version-links">
+                <a href="https://zh.minecraft.wiki/w/Java版1.4" target="_blank">📖 Wiki</a>
+            </div>
+        </div>
+
+        <!-- ===== 1.5 ===== -->
+        <div class="version-card">
+            <div class="version-header">
+                <span class="version-number">1.5</span>
+                <span class="version-date">2013.03</span>
+            </div>
+            <div class="version-theme">⚡ 红石更新 (Redstone Update)</div>
+            <div class="version-detail">
+                <span class="add">+</span> 红石比较器、漏斗、投掷器、测重压力板、石英<br>
+                <span class="highlight">✨ 特性：</span> 红石系统大幅增强<br>
+                <span class="recommend">👥 推荐：</span> 红石工程师和自动化爱好者
+            </div>
+            <div class="version-links">
+                <a href="https://zh.minecraft.wiki/w/Java版1.5" target="_blank">📖 Wiki</a>
+            </div>
+        </div>
+
+        <!-- ===== 1.6 ===== -->
+        <div class="version-card">
+            <div class="version-header">
+                <span class="version-number">1.6</span>
+                <span class="version-date">2013.07</span>
+            </div>
+            <div class="version-theme">🐴 马匹更新 (Horse Update)</div>
+            <div class="version-detail">
+                <span class="add">+</span> 马、驴、骡、僵尸马、骷髅马、地毯、煤炭块<br>
+                <span class="highlight">✨ 特性：</span> 加入可驯服和骑乘的马匹<br>
+                <span class="recommend">👥 推荐：</span> 喜欢快速移动和驯养动物的玩家
+            </div>
+            <div class="version-links">
+                <a href="https://zh.minecraft.wiki/w/Java版1.6" target="_blank">📖 Wiki</a>
+            </div>
+        </div>
+
+        <!-- ===== 1.7 ===== -->
+        <div class="version-card">
+            <div class="version-header">
+                <span class="version-number">1.7</span>
+                <span class="version-date">2013.10</span>
+            </div>
+            <div class="version-theme">🌿 改变世界的更新 (The Update That Changed The World)</div>
+            <div class="version-detail">
+                <span class="add">+</span> 新增11个生物群系、花朵、染色玻璃、鱼、钓鱼<br>
+                <span class="highlight">✨ 特性：</span> 世界生成全面翻新<br>
+                <span class="recommend">👥 推荐：</span> 探险家和风景党，世界多样性大幅提升
+            </div>
+            <div class="version-links">
+                <a href="https://zh.minecraft.wiki/w/Java版1.7" target="_blank">📖 Wiki</a>
+            </div>
+        </div>
+
+        <!-- ===== 新增 1.7.10 ===== -->
+        <div class="version-card" style="border-color: #6ea8fe;">
+            <div class="version-header">
+                <span class="version-number">1.7.10</span>
+                <span class="version-date">2014.06</span>
+            </div>
+            <div class="version-theme">🔧 稳定优化版</div>
+            <div class="version-detail">
+                <span class="add">+</span> 新增多种 mod API 支持（Forge 主力版本）<br>
+                <span class="remove">−</span> 修复大量崩溃和性能问题（无实质内容删除）<br>
+                <span class="highlight">✨ 特性：</span> 公认的 Mod 黄金时代基石，兼容性极强<br>
+                <span class="recommend">👥 推荐：</span> 资深模组玩家，大量经典 Mod 停留于此版本
+            </div>
+            <div class="version-links">
+                <a href="https://zh.minecraft.wiki/w/Java版1.7.10" target="_blank">📖 Wiki</a>
+            </div>
+        </div>
+
+        <!-- ===== 1.8 ===== -->
+        <div class="version-card">
+            <div class="version-header">
+                <span class="version-number">1.8</span>
+                <span class="version-date">2014.09</span>
+            </div>
+            <div class="version-theme">🛡️ 缤纷更新 (Bountiful Update)</div>
+            <div class="version-detail">
+                <span class="add">+</span> 海洋纪念碑、海晶石、远古守卫者、盔甲架、兔、粘液块<br>
+                <span class="highlight">✨ 特性：</span> 加入水下遗迹和全新海洋内容<br>
+                <span class="recommend">👥 推荐：</span> 海洋探索和红石飞行器爱好者
+            </div>
+            <div class="version-links">
+                <a href="https://zh.minecraft.wiki/w/Java版1.8" target="_blank">📖 Wiki</a>
+            </div>
+        </div>
+
+        <!-- ===== 新增 1.8.9 ===== -->
+        <div class="version-card" style="border-color: #6ea8fe;">
+            <div class="version-header">
+                <span class="version-number">1.8.9</span>
+                <span class="version-date">2015.12</span>
+            </div>
+            <div class="version-theme">⚔️ PvP 巅峰</div>
+            <div class="version-detail">
+                <span class="add">+</span> 新增“玩家头颅”获取方式、优化战斗手感<br>
+                <span class="remove">−</span> 修复了大量 1.8 的 BUG，移除部分冗余机制<br>
+                <span class="highlight">✨ 特性：</span> 战斗系统最流畅的版本，被 Hypixel 等服务器广泛采用<br>
+                <span class="recommend">👥 推荐：</span> PvP 竞技玩家，追求低延迟和操作手感
+            </div>
+            <div class="version-links">
+                <a href="https://zh.minecraft.wiki/w/Java版1.8.9" target="_blank">📖 Wiki</a>
+            </div>
+        </div>
+
+        <!-- ===== 1.9 ===== -->
+        <div class="version-card">
+            <div class="version-header">
+                <span class="version-number">1.9</span>
+                <span class="version-date">2016.02</span>
+            </div>
+            <div class="version-theme">⚔️ 战斗更新 (Combat Update)</div>
+            <div class="version-detail">
+                <span class="add">+</span> 双持、盾牌、紫颂果、末地城、鞘翅、龙息<br>
+                <span class="highlight">✨ 特性：</span> 战斗系统大改，加入冷却机制<br>
+                <span class="recommend">👥 推荐：</span> 喜欢策略战斗和末地探索的玩家
+            </div>
+            <div class="version-links">
+                <a href="https://zh.minecraft.wiki/w/Java版1.9" target="_blank">📖 Wiki</a>
+            </div>
+        </div>
+
+        <!-- ===== 1.10 ===== -->
+        <div class="version-card">
+            <div class="version-header">
+                <span class="version-number">1.10</span>
+                <span class="version-date">2016.06</span>
+            </div>
+            <div class="version-theme">🔥 霜炙更新 (Frostburn Update)</div>
+            <div class="version-detail">
+                <span class="add">+</span> 北极熊、流浪者、尸壳、骨块、岩浆块、地狱疣块<br>
+                <span class="highlight">✨ 特性：</span> 加入极地和炎热地区的变种生物<br>
+                <span class="recommend">👥 推荐：</span> 喜欢极端环境生存的玩家
+            </div>
+            <div class="version-links">
+                <a href="https://zh.minecraft.wiki/w/Java版1.10" target="_blank">📖 Wiki</a>
+            </div>
+        </div>
+
+        <!-- ===== 1.11 ===== -->
+        <div class="version-card">
+            <div class="version-header">
+                <span class="version-number">1.11</span>
+                <span class="version-date">2016.11</span>
+            </div>
+            <div class="version-theme">🏚️ 探险更新 (Exploration Update)</div>
+            <div class="version-detail">
+                <span class="add">+</span> 林地府邸、唤魔者、恼鬼、羊驼、潜影盒、不死图腾<br>
+                <span class="highlight">✨ 特性：</span> 加入黑森林中的大型结构<br>
+                <span class="recommend">👥 推荐：</span> 探险家和收集狂
+            </div>
+            <div class="version-links">
+                <a href="https://zh.minecraft.wiki/w/Java版1.11" target="_blank">📖 Wiki</a>
+            </div>
+        </div>
+
+        <!-- ===== 1.12 ===== -->
+        <div class="version-card">
+            <div class="version-header">
+                <span class="version-number">1.12</span>
+                <span class="version-date">2017.06</span>
+            </div>
+            <div class="version-theme">🌈 多彩世界更新 (World of Color Update)</div>
+            <div class="version-detail">
+                <span class="add">+</span> 混凝土、带釉陶瓦、鹦鹉、幻术师、配方书<br>
+                <span class="highlight">✨ 特性：</span> 加入大量彩色建筑方块<br>
+                <span class="recommend">👥 推荐：</span> 建筑师和色彩爱好者
+            </div>
+            <div class="version-links">
+                <a href="https://zh.minecraft.wiki/w/Java版1.12" target="_blank">📖 Wiki</a>
+            </div>
+        </div>
+
+        <!-- ===== 新增 1.12.2 ===== -->
+        <div class="version-card" style="border-color: #6ea8fe;">
+            <div class="version-header">
+                <span class="version-number">1.12.2</span>
+                <span class="version-date">2017.09</span>
+            </div>
+            <div class="version-theme">🧩 模组繁荣之巅</div>
+            <div class="version-detail">
+                <span class="add">+</span> 优化配方书、稳定服务端、加强 Forge 支持<br>
+                <span class="remove">−</span> 修复大量内存泄漏和崩溃问题<br>
+                <span class="highlight">✨ 特性：</span> 公认的模组数量最多、最稳定的版本之一<br>
+                <span class="recommend">👥 推荐：</span> 重度模组玩家，想要体验海量 Mod 的内容
+            </div>
+            <div class="version-links">
+                <a href="https://zh.minecraft.wiki/w/Java版1.12.2" target="_blank">📖 Wiki</a>
+            </div>
+        </div>
+
+        <!-- ===== 1.13 ===== -->
+        <div class="version-card">
+            <div class="version-header">
+                <span class="version-number">1.13</span>
+                <span class="version-date">2018.07</span>
+            </div>
+            <div class="version-theme">🌊 水域更新 (Update Aquatic)</div>
+            <div class="version-detail">
+                <span class="add">+</span> 海龟、海豚、珊瑚、海带、沉船、埋藏的宝藏、三叉戟<br>
+                <span class="highlight">✨ 特性：</span> 海洋生物群系彻底重做<br>
+                <span class="recommend">👥 推荐：</span> 海洋探险家和水下建筑爱好者
+            </div>
+            <div class="version-links">
+                <a href="https://zh.minecraft.wiki/w/Java版1.13" target="_blank">📖 Wiki</a>
+            </div>
+        </div>
+
+        <!-- ===== 1.14 ===== -->
+        <div class="version-card">
+            <div class="version-header">
+                <span class="version-number">1.14</span>
+                <span class="version-date">2019.04</span>
+            </div>
+            <div class="version-theme">🏡 村庄与掠夺 (Village & Pillage)</div>
+            <div class="version-detail">
+                <span class="add">+</span> 掠夺者、劫掠兽、村民职业大翻新、制图台、锻造台、灯笼、脚手架<br>
+                <span class="highlight">✨ 特性：</span> 村庄和村民系统全面重做<br>
+                <span class="recommend">👥 推荐：</span> 喜欢村庄经营和贸易的玩家
+            </div>
+            <div class="version-links">
+                <a href="https://zh.minecraft.wiki/w/Java版1.14" target="_blank">📖 Wiki</a>
+            </div>
+        </div>
+
+        <!-- ===== 1.15 ===== -->
+        <div class="version-card">
+            <div class="version-header">
+                <span class="version-number">1.15</span>
+                <span class="version-date">2019.12</span>
+            </div>
+            <div class="version-theme">🐝 嗡嗡蜂群 (Buzzy Bees)</div>
+            <div class="version-detail">
+                <span class="add">+</span> 蜜蜂、蜜脾、蜂箱、蜜糖块、蜜糖瓶<br>
+                <span class="highlight">✨ 特性：</span> 加入蜜蜂和蜂蜜相关物品<br>
+                <span class="recommend">👥 推荐：</span> 喜欢养殖和食物系统的玩家
+            </div>
+            <div class="version-links">
+                <a href="https://zh.minecraft.wiki/w/Java版1.15" target="_blank">📖 Wiki</a>
+            </div>
+        </div>
+
+        <!-- ===== 1.16 ===== -->
+        <div class="version-card">
+            <div class="version-header">
+                <span class="version-number">1.16</span>
+                <span class="version-date">2020.06</span>
+            </div>
+            <div class="version-theme">🔥 下界更新 (Nether Update)</div>
+            <div class="version-detail">
+                <span class="add">+</span> 下界合金、绯红/诡异森林、猪灵、疣猪兽、重生锚、磁石<br>
+                <span class="highlight">✨ 特性：</span> 下界维度全面翻新<br>
+                <span class="recommend">👥 推荐：</span> 下界探险者和装备追求者
+            </div>
+            <div class="version-links">
+                <a href="https://zh.minecraft.wiki/w/Java版1.16" target="_blank">📖 Wiki</a>
+            </div>
+        </div>
+
+        <!-- ===== 新增 1.16.5 ===== -->
+        <div class="version-card" style="border-color: #6ea8fe;">
+            <div class="version-header">
+                <span class="version-number">1.16.5</span>
+                <span class="version-date">2021.01</span>
+            </div>
+            <div class="version-theme">🔥 下界稳定版</div>
+            <div class="version-detail">
+                <span class="add">+</span> 修复下界生成错误，优化性能，加入自定义世界生成数据包<br>
+                <span class="remove">−</span> 移除部分导致崩溃的生成异常（无功能删除）<br>
+                <span class="highlight">✨ 特性：</span> 下界更新最稳定、最多 Mod 支持的版本<br>
+                <span class="recommend">👥 推荐：</span> 既想体验下界新内容又追求稳定性的玩家
+            </div>
+            <div class="version-links">
+                <a href="https://zh.minecraft.wiki/w/Java版1.16.5" target="_blank">📖 Wiki</a>
+            </div>
+        </div>
+
+        <!-- ===== 1.17 ===== -->
+        <div class="version-card">
+            <div class="version-header">
+                <span class="version-number">1.17</span>
+                <span class="version-date">2021.06</span>
+            </div>
+            <div class="version-theme">⛰️ 洞穴与山崖·第一部分 (Caves & Cliffs Part I)</div>
+            <div class="version-detail">
+                <span class="add">+</span> 紫晶洞、铜、避雷针、望远镜、美西螈、山羊、发光鱿鱼<br>
+                <span class="highlight">✨ 特性：</span> 加入新矿物和生物<br>
+                <span class="recommend">👥 推荐：</span> 喜欢新矿物和可爱生物的玩家
+            </div>
+            <div class="version-links">
+                <a href="https://zh.minecraft.wiki/w/Java版1.17" target="_blank">📖 Wiki</a>
+            </div>
+        </div>
+
+        <!-- ===== 1.18 ===== -->
+        <div class="version-card">
+            <div class="version-header">
+                <span class="version-number">1.18</span>
+                <span class="version-date">2021.11</span>
+            </div>
+            <div class="version-theme">⛰️ 洞穴与山崖·第二部分 (Caves & Cliffs Part II)</div>
+            <div class="version-detail">
+                <span class="add">+</span> 世界高度扩展至 -64 ~ 319、含水层、噪声洞穴、全新山脉群系<br>
+                <span class="highlight">✨ 特性：</span> 世界生成彻底重写<br>
+                <span class="recommend">👥 推荐：</span> 探索新地形和挑战深层的玩家
+            </div>
+            <div class="version-links">
+                <a href="https://zh.minecraft.wiki/w/Java版1.18" target="_blank">📖 Wiki</a>
+            </div>
+        </div>
+
+        <!-- ===== 1.19 ===== -->
+        <div class="version-card">
+            <div class="version-header">
+                <span class="version-number">1.19</span>
+                <span class="version-date">2022.06</span>
+            </div>
+            <div class="version-theme">🌳 荒野更新 (The Wild Update)</div>
+            <div class="version-detail">
+                <span class="add">+</span> 红树林沼泽、古城、监守者、青蛙、悦灵、追溯指针<br>
+                <span class="highlight">✨ 特性：</span> 加入深暗之域和全新生物<br>
+                <span class="recommend">👥 推荐：</span> 喜欢恐怖氛围和红石装置的玩家
+            </div>
+            <div class="version-links">
+                <a href="https://zh.minecraft.wiki/w/Java版1.19" target="_blank">📖 Wiki</a>
+            </div>
+        </div>
+
+        <!-- ===== 新增 1.19.2 ===== -->
+        <div class="version-card" style="border-color: #6ea8fe;">
+            <div class="version-header">
+                <span class="version-number">1.19.2</span>
+                <span class="version-date">2022.08</span>
+            </div>
+            <div class="version-theme">🌳 荒野修复版</div>
+            <div class="version-detail">
+                <span class="add">+</span> 优化古城生成、添加更多音效细节、提升性能<br>
+                <span class="remove">−</span> 移除部分导致区块加载卡顿的冗余检查<br>
+                <span class="highlight">✨ 特性：</span> 1.19 系列中最稳定、最受欢迎的版本<br>
+                <span class="recommend">👥 推荐：</span> 喜欢荒野更新内容但想避开初期 BUG 的玩家
+            </div>
+            <div class="version-links">
+                <a href="https://zh.minecraft.wiki/w/Java版1.19.2" target="_blank">📖 Wiki</a>
+            </div>
+        </div>
+
+        <!-- ===== 1.20 ===== -->
+        <div class="version-card">
+            <div class="version-header">
+                <span class="version-number">1.20</span>
+                <span class="version-date">2023.06</span>
+            </div>
+            <div class="version-theme">📖 足迹与故事 (Trails & Tales)</div>
+            <div class="version-detail">
+                <span class="add">+</span> 樱花树林、考古系统（陶片）、锻造模板、嗅探兽、骆驼、吊牌<br>
+                <span class="highlight">✨ 特性：</span> 加入考古和盔甲纹饰系统<br>
+                <span class="recommend">👥 推荐：</span> 考古爱好者和装饰党
+            </div>
+            <div class="version-links">
+                <a href="https://zh.minecraft.wiki/w/Java版1.20" target="_blank">📖 Wiki</a>
+            </div>
+        </div>
+
+        <!-- ===== 1.21 ===== -->
+        <div class="version-card">
+            <div class="version-header">
+                <span class="version-number">1.21</span>
+                <span class="version-date">2024.06</span>
+            </div>
+            <div class="version-theme">⚔️ 棘巧试炼 (Tricky Trials)</div>
+            <div class="version-detail">
+                <span class="add">+</span> 试炼密室、试炼刷怪笼、旋风人、微风棒、重锤、铜灯<br>
+                <span class="highlight">✨ 特性：</span> 加入全新的地下战斗结构<br>
+                <span class="recommend">👥 推荐：</span> 喜欢挑战和高难度战斗的玩家
+            </div>
+            <div class="version-links">
+                <a href="https://zh.minecraft.wiki/w/Java版1.21" target="_blank">📖 Wiki</a>
+            </div>
+        </div>
+
+        <!-- ===== 26.x (2026 新版本体系) ===== -->
+        <div class="version-card" style="border-color: #f5c842;">
+            <div class="version-header">
+                <span class="version-number">26.x</span>
+                <span class="version-date">2026</span>
+            </div>
+            <div class="version-theme">🔄 年度版本号体系</div>
+            <div class="version-detail">
+                <span class="add">+</span> 26.1「小鬼当家」、26.2「混沌立方」<br>
+                <span style="color:#f5c842;">📌 自2026年起采用年度版本号</span><br>
+                <span class="highlight">✨ 26.2 特性：</span> OpenGL 默认，Vulkan 实验性支持<br>
+                <span class="recommend">👥 推荐：</span> 追求最新技术和未来兼容性的玩家
+            </div>
+            <div class="version-links">
+                <a href="https://zh.minecraft.wiki/w/Java版26.1" target="_blank">📖 26.1 Wiki</a>
+                <a href="https://zh.minecraft.wiki/w/Java版26.2" target="_blank">📖 26.2 Wiki</a>
+            </div>
+        </div>
+
+        <!-- ===== 新增 26.3-snapshot 1 ===== -->
+        <div class="version-card" style="border-color: #f5c842; background: #1f2e50;">
+            <div class="version-header">
+                <span class="version-number">26.3-snapshot 1</span>
+                <span class="version-date">2026 (开发中)</span>
+            </div>
+            <div class="version-theme">🧪 快照预览版 · 实验性特性测试</div>
+            <div class="version-detail">
+                <span class="add">+</span> 实验性红石元件、新的生物群系微调、性能优化<br>
+                <span class="remove">−</span> 修复多个导致崩溃的遗留问题<br>
+                <span class="highlight">✨ 特性：</span> 首个 26.3 快照，引入实验性玩法开关<br>
+                <span class="recommend">👥 推荐：</span> 喜欢尝鲜、愿意反馈问题的技术向玩家
+            </div>
+            <div class="version-links">
+                <a href="#" target="_blank">📖 Wiki (暂未上线)</a>
+                <a href="https://zh.minecraft.wiki/" target="_blank">📌 Minecraft Wiki 首页</a>
+            </div>
+        </div>
+
+        <!-- ===== 新增 26.3-snapshot 2 ===== -->
+        <div class="version-card" style="border-color: #f5c842; background: #1f2e50;">
+            <div class="version-header">
+                <span class="version-number">26.3-snapshot 2</span>
+                <span class="version-date">2026 (开发中)</span>
+            </div>
+            <div class="version-theme">🧪 快照预览版 · 平衡性与稳定性调整</div>
+            <div class="version-detail">
+                <span class="add">+</span> 基于社区反馈调整游戏平衡、优化渲染管线、新增调试工具<br>
+                <span class="remove">−</span> 移除部分实验性特性中的不稳定元素<br>
+                <span class="highlight">✨ 特性：</span> 第二个快照，着重修复多人游戏同步问题<br>
+                <span class="recommend">👥 推荐：</span> 服务器管理员与模组开发者，提前适配新版本
+            </div>
+            <div class="version-links">
+                <a href="#" target="_blank">📖 Wiki (暂未上线)</a>
+                <a href="https://zh.minecraft.wiki/" target="_blank">📌 Minecraft Wiki 首页</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>📚 数据来源：<a href="https://zh.minecraft.wiki/" target="_blank">中文 Minecraft Wiki</a> ｜
+        版本范围：Java 版正式版 1.0.0 ~ 26.3-snapshot 2，并补充 2 个 26.3 快照<br>
+        <span style="font-size:0.8rem;">作者:director 不要认错啦!</span></p>
+    </div>
+</div>
+</body>
+</html>
